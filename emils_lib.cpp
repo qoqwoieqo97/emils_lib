@@ -271,52 +271,6 @@ namespace el {
 		Vectors::Vector2 chargeForce(Matter e1, Matter e2) {
 			return el::Physics::chargeForce((e2.v - e1.v) * el::Vectors::getVectorNepos(e2.v - e1.v), e1.charge, e2.charge);
 		}
-		template<int NumberOfElectrons, int NumberOfNeutrons, int NumberOfProtons>class DAtom {
-		private:
-			Matter Electrons[NumberOfElectrons], Neutrons[NumberOfNeutrons], Protons[NumberOfProtons];
-		public:
-			DAtom() {
-				for (int i = 0; i < NumberOfElectrons; i++) { Electrons[i].v = { 0.0,0.0 }; Electrons[i].charge = -1; }
-				for (int i = 0; i < NumberOfNeutrons; i++) { Neutrons[i].v = { 0.0,0.0 }; Neutrons[i].charge = 0; }
-				for (int i = 0; i < NumberOfProtons; i++) { Protons[i].v = { 0.0,0.0 }; Protons[i].charge = +1; }
-			}
-
-			void setElectronPos(int which, Vectors::Vector2 p) { Electrons[which].v = p; }
-			void setNeutronPos(int which, Vectors::Vector2 p) { Neutrons[which].v = p; }
-			void setProtonPos(int which, Vectors::Vector2 p) { Protons[which].v = p; }
-
-			Matter getProton(int which) { return Protons[which]; }
-			Matter getElectron(int which) { return Electrons[which]; }
-			Matter getNeutron(int which) { return Neutrons[which]; }
-			int getNOE() { return NumberOfElectrons; }
-			int getNOP() { return NumberOfProtons; }
-			int getNON() { return NumberOfNeutrons; }
-
-			void calculate() {
-				Vectors::Vector2 electronsForce[NumberOfElectrons];
-				Vectors::Vector2 protonsForce[NumberOfProtons];
-				Vectors::Vector2 neutronsForce[NumberOfNeutrons];
-
-				for (int i = 0; i < NumberOfElectrons; i++) {
-					for (int j = 0; j < NumberOfProtons; j++) electronsForce[i] += chargeForce(Electrons[i], Protons[j]);
-					for (int j = 0; j < NumberOfElectrons; j++) if (i != j) electronsForce[i] += chargeForce(Electrons[i], Electrons[j]);
-					for (int j = 0; j < NumberOfNeutrons; j++) electronsForce[i] += chargeForce(Electrons[i], Neutrons[j]);
-				}for (int i = 0; i < NumberOfProtons; i++) {
-					for (int j = 0; j < NumberOfProtons; j++) if (i != j) protonsForce[i] += chargeForce(Protons[i], Protons[j]);
-					for (int j = 0; j < NumberOfElectrons; j++) protonsForce[i] += chargeForce(Protons[i], Electrons[j]);
-					for (int j = 0; j < NumberOfNeutrons; j++) protonsForce[i] += chargeForce(Protons[i], Neutrons[j]);
-				}for (int i = 0; i < NumberOfNeutrons; i++) {
-					for (int j = 0; j < NumberOfProtons; j++) neutronsForce[i] += chargeForce(Neutrons[i], Protons[j]);
-					for (int j = 0; j < NumberOfElectrons; j++) neutronsForce[i] += chargeForce(Neutrons[i], Electrons[j]);
-					for (int j = 0; j < NumberOfNeutrons; j++) if (i != j) neutronsForce[i] += chargeForce(Neutrons[i], Neutrons[j]);
-				}
-				for (int i = 0; i < NumberOfElectrons; i++) Electrons[i].v += electronsForce[i];
-				for (int i = 0; i < NumberOfProtons; i++)Protons[i].v += protonsForce[i];
-				for (int i = 0; i < NumberOfNeutrons; i++)Neutrons[i].v += neutronsForce[i];
-			}
-		};
-
-
 		template<int T, int T2, int T3>
 		void writeAtom(DAtom<T, T2, T3> a) {
 			std::cout << "Electrons:";
