@@ -1,4 +1,5 @@
 # emils_lib
+0.1.1
 Genel kısayollar:
 LOG(x) x'i ekrana yazdırır ve bi alt satıra geçer
 LO(x) x'i ekrana yazdırır
