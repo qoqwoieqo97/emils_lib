@@ -100,6 +100,14 @@ namespace el {
 			int result = 0; str = reverse(str);
 			for (int i = 0; i < glos(str); i++) result += pow(10, i) * toInteger(str[i]); return result;
 		}
+		std::string toLower(std::string str)
+		{
+			for (int i = 0; i < glos(str); i++) str[i] = tolower(str[i]); return str;
+		}
+		std::string combineVecS(std::vector<std::string> str)
+		{
+			std::string result; for (std::string member : str) result += member + " "; return result;
+		}
 	}
 
 	namespace Strings {
@@ -111,6 +119,19 @@ namespace el {
 		}
 		int getSplitting(std::string wllSplit, char c, int length) {
 			int counter = 0; for (int i = 0; i < length; i++) if (wllSplit[i] == c) counter++; return counter;
+		}
+	}
+
+	namespace Inputs {
+		std::vector<std::string> getUntilB(char until)
+		{
+			std::vector<std::string> result;
+			while (true)
+			{
+				std::string wllCin; std::cin >> wllCin;
+				if (wllCin[0] != until) result.push_back(wllCin);
+				else break;
+			} return result;
 		}
 	}
 

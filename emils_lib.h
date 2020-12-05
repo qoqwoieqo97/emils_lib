@@ -37,11 +37,17 @@ namespace el {
 		MYLIBRARY_API bool isThisInt(std::string str);
 		MYLIBRARY_API std::string reverse(std::string str);
 		MYLIBRARY_API int toInteger(std::string str);
+		MYLIBRARY_API std::string toLower(std::string str);
+		MYLIBRARY_API std::string combineVecS(std::vector<std::string> str);
 	}
 	namespace Strings {
 		template<int numberOfStrings> struct arrayString { std::string a[numberOfStrings]; };
 		template<int length> MYLIBRARY_API arrayString<length> split(std::string wllSplit, char c);
 		MYLIBRARY_API int getSplitting(std::string wllSplit, char c, int length);
+	}
+
+	namespace Inputs {
+		MYLIBRARY_API std::vector<std::string> getUntilB(char until);
 	}
 	namespace Math {
 		MYLIBRARY_API int factorial(int a);
