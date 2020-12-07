@@ -8,7 +8,7 @@ template<class T> void operator-=(T& a, T& b) { a = a - b; }
 template<class T> bool operator!=(T a, T b) { return !(a == b); }
 
 namespace el {
-	std::string getVersion() { return "0.1.3"; }
+	std::string getVersion() { return "0.1.5"; }
 	namespace Classic {
 		template <class T> int getNumberOfElements(T* c) { return sizeof(c) / sizeof(c[0]); }
 		template <class T> inline void swap(T& a, T& b) { T t; t = a; a = b; b = t; }
@@ -63,7 +63,7 @@ namespace el {
 			if (howManyContains(str, c) != 0) for (int i = -1; i < howManyContains(str, c) + 1; i++) result.push_back(getBetweenThat(str, getThats(str, c, i), getThats(str, c, i + 1)));
 			return result;
 		}
-		/* "patates","uçan, kaçan çocuk" c=',' out='"' */
+		/* "patates","uÃ§an, kaÃ§an Ã§ocuk" c=',' out='"' */
 		std::vector<std::string> splitOut(std::string str, char c, char out)
 		{
 			bool isOut = true;
