@@ -72,7 +72,7 @@ Pattern üzerinden oluşturulan inputu alarak verileri std::vector<std::string> 
 Dönecek std::vector #ler yerine ne geldiğidir.
 Yani sayi ve 5'i döndürür
 
-#Map
+# Map
 Veri kontrolü sınıfı <T1,T2> şeklinde 2 farklı veri tipi alır
 ### push_back(T1,T2)
 Veri ekleme
