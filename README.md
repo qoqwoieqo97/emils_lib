@@ -25,7 +25,7 @@ Kütüphane versiyonunu döndürür
 Yazı işlemleri hakkında bir bölüm	
 ### glos(std::string)
 yazının kaç harfden oluştuğunu döndürür.	
-## isContains(std::string a, std::string b)
+### isContains(std::string a, std::string b)
 a yazısının içinde b yazısının olup olmadığını döndürür	
 ### whereContains(std::string a, std::string b)
 a yazısının içindeki b yazısı a yazısının kaçıncı harfinden itibaren başladığını döndürür	
@@ -53,6 +53,39 @@ a yazısının sayı olup olmadığını kontrol eder
 a yazısını ters çevirir	
 ### toInteger(std::string a) 
 a yazısını sayıya çevirir ve döndürür	
+
+# Pattern
+Pattern sistemi için oluşturulmuş sınıf
+Bu sınıf evin temeli mantığında çalışmaktadır. Bir pattern tanımlanır
+ardından o pattern üzerine oluşturulmuş bir input girilir. Ardından fonksiyon
+patternden aldığı bilgilerle inputtan veri çeker.
+### Pattern(std::string a,char b)
+Pattern tanımı:
+a pattern b pattern işaretidir.
+Örn: a = "int # = #;" b = '#'
+### Pattern(std::vector<std::string> a, char b)
+zaten parçalara ayrılmış bir pattern a'ya girilir.
+Örn: a = [int ][ = ][;] b='#'
+### getPatternResult(std::string a)
+Pattern üzerinden oluşturulan inputu alarak verileri std::vector<std::string> biçiminden iletir.
+Örn: a = "int sayi = 5;" ve pattern işaretide '#' olsun.
+Dönecek std::vector #ler yerine ne geldiğidir.
+Yani sayi ve 5'i döndürür
+
+#Map
+Veri kontrolü sınıfı <T1,T2> şeklinde 2 farklı veri tipi alır
+### push_back(T1,T2)
+Veri ekleme
+### control(T1 a)
+a,? şeklinde bir veri varmı?
+### getMap()
+std::vector tipinden veri haritasını döndürür
+### getId(T1 a)
+a,? şeklinde olan verinin idsini döndürür
+### setId(int a,T2 inf)
+idsi a olan verinin 2. değişkenini değiştirir.
+### setId(int a, T1 inf)
+idsi a olan verinin 1. değişkenini değiştirir.
 
 # namespace Math:	
 Basit matematik işlemleri	

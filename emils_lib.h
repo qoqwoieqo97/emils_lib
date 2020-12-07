@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <unordered_map>
 
 #ifdef MYLIBRARY_EXPORT
 #define MYLIBRARY_API /*DLLEXPORT*/
@@ -42,6 +43,40 @@ namespace el {
 		MYLIBRARY_API std::string toLower(std::string str);
 		MYLIBRARY_API std::string combineVecS(std::vector<std::string> str);
 	}
+
+	template <typename T1, typename T2>struct Variable2 { T1 First; T2 Second; };
+	template <typename T1, typename T2> class Map
+	{
+	private:
+		std::vector<Variable2<T1, T2>> m_Map;
+	public:
+		void push_back(T1 a, T2 b) { m_Map.push_back({ a,b }); }
+		bool control(T1 a)
+		{
+			for (Variable2<T1, T2> control : m_Map) if (control.First == a) return true;
+			return false;
+		}
+		std::vector<Variable2<T1, T2>> getMap() const { return m_Map; }
+		int getId(T1 a)
+		{
+			for (int i = 0; i < m_Map.size();i++) if (m_Map[i].First == a) return i;
+			return -1;
+		}
+		void setId(int a, T2 inf) { if (!a<0) m_Map[a].Second = inf; }
+		void setId(int a, T1 inf) { if (!a < 0) m_Map[a].First = inf; }
+	};
+
+
+	class Pattern
+	{
+	private:
+		std::vector<std::string> PatternString; char PatternMarker;
+	public:
+		Pattern(std::vector<std::string> pattern, char patternMarker);
+		Pattern(std::string pattern, char patternMarker);
+		static bool PatternController(std::vector<std::string> PatternVector, std::string input);
+		std::vector<std::string> getPatternResult(std::string input);
+	};
 
 	namespace Inputs {
 		MYLIBRARY_API std::vector<std::string> getUntilB(char until);

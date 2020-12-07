@@ -126,6 +126,42 @@ namespace el {
 		}
 	}
 
+	bool Pattern::PatternController(std::vector<std::string> PatternVector, std::string input)
+	{
+		int key = el::StrCalc::whereContains(input, PatternVector[0]);
+		for (int i = 1; i < PatternVector.size(); i++)
+		{
+			if (key < el::StrCalc::whereContains(input, PatternVector[1]))
+			{
+				key = el::StrCalc::whereContains(input, PatternVector[1]);
+				continue;
+			}
+			else return false;
+		}
+		return true;
+	}
+
+	Pattern::Pattern(std::vector<std::string> pattern, char patternMarker) { 
+		PatternString = pattern; PatternMarker = patternMarker;
+	}
+
+	Pattern::Pattern(std::string pattern, char patternMarker)
+	{
+		PatternString = el::StrCalc::split(pattern, patternMarker); PatternMarker = patternMarker;
+	}
+
+	std::vector<std::string> Pattern::getPatternResult(std::string input)
+	{
+		std::vector<std::string> result;
+		for (int i = 0; i < PatternString.size() - 1; i++)
+		{
+			int leftW = el::StrCalc::whereContains(input, PatternString[i]) + el::StrCalc::glos(PatternString[i]) - 1;
+			int rightW = el::StrCalc::whereContains(input, PatternString[i + 1]);
+			result.push_back(el::StrCalc::getBetweenThat(input, leftW, rightW));
+		}
+		return result;
+	}
+
 	namespace Inputs {
 		std::vector<std::string> getUntilB(char until)
 		{
