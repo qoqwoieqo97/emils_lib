@@ -1,5 +1,5 @@
 # emils_lib
-0.1.5
+0.1.6
 Çoğu repomda bulunan ve genel kullanım için bir c++ kütüphanesi
 #define ile tanımlanmış kısayollar:
 ### LOG(x)
@@ -39,6 +39,8 @@ a yazısındaki b ve c nin arasındaki yeri döndürür
 a yazısını b karakterine göre böler ve std::vector<std::string> olarak döndürüş yapar	
 ### splitOut(std::string a, char b,char c);
 a yazısını b karakterine göre böler ama eğer a karakteri c karakterleri arasındaysa bölmez. std::vector<std::string> olarak döndürüş yapar
+### splitOut(std::string a, char b,char c,char d);
+a yazısını b karakterine göre böler ama eğer a karakteri c ve d karakterleri arasındaysa bölmez. std::vector<std::string> olarak döndürüş yapar
 ### subtract(std::string a, std::string b) 
 a yazısının içindeki b yazısını a yazısından çıkartır ve döndürür	
 ### pFor100(std::string a[100]) 

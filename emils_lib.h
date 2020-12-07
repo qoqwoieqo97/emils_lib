@@ -27,13 +27,15 @@ namespace el {
 	namespace StrCalc {
 		MYLIBRARY_API int glos(std::string str);
 		MYLIBRARY_API bool isContains(std::string string, std::string wllSearch);
-		MYLIBRARY_API int whereContains(std::string string, std::string wllSearch);
+		MYLIBRARY_API int whereContains(std::string string, std::string wllSearch, int place);
 		MYLIBRARY_API int howManyContains(std::string string, char c);
 		MYLIBRARY_API int getThats(std::string string, char a, int place);
 		MYLIBRARY_API std::string getBetweenThat(std::string string, int p1, int p2);
 		MYLIBRARY_API std::vector<std::string> split(std::string str, char c);
 		MYLIBRARY_API std::vector<std::string> splitOut(std::string str, char c,char out);
-		MYLIBRARY_API std::string subtract(std::string str, std::string wllSubtract);
+		MYLIBRARY_API std::vector<std::string> splitOut(std::string str, char c, char out,char out2);
+		MYLIBRARY_API std::string subtract(std::string str, std::string wllSubtract,int place);
+		MYLIBRARY_API std::string subtractCharacters(std::string control, char without = ' ');
 		MYLIBRARY_API void pFor100(std::string urArray[100]);
 		MYLIBRARY_API std::string getN(std::string a, int place, int n);
 		MYLIBRARY_API int toInteger(char c);

@@ -8,7 +8,7 @@ template<class T> void operator-=(T& a, T& b) { a = a - b; }
 template<class T> bool operator!=(T a, T b) { return !(a == b); }
 
 namespace el {
-	std::string getVersion() { return "0.1.5"; }
+	std::string getVersion() { return "0.1.6"; }
 	namespace Classic {
 		template <class T> int getNumberOfElements(T* c) { return sizeof(c) / sizeof(c[0]); }
 		template <class T> inline void swap(T& a, T& b) { T t; t = a; a = b; b = t; }
@@ -30,13 +30,14 @@ namespace el {
 			return false;
 		}
 
-		int whereContains(std::string string, std::string wllSearch)
+		int whereContains(std::string string, std::string wllSearch,int place)
 		{
 			int result = -1;
 			for (int i = 0; i < glos(string) - glos(wllSearch) + 1; i++) for (int j = 0; j < glos(wllSearch); j++) {
 				if (string[i + j] != wllSearch[j]) break;
 				if (j == glos(wllSearch) - 1) {
-					result = i; break; break;
+					place--;
+					if (place == 0) { result = i; break; break; }
 				}
 			}
 
@@ -53,17 +54,17 @@ namespace el {
 
 		std::string getBetweenThat(std::string string, int p1, int p2) {
 			std::string result = "";
-			for (int i = p1 + 1; i < p2; i++) result += string[i];
+			for (int i = p1 + 1; i < p2 && i<glos(string); i++) result += string[i];
 			return result;
 		}
 
 		std::vector<std::string> split(std::string str, char c)
 		{
 			std::vector<std::string> result;
-			if (howManyContains(str, c) != 0) for (int i = -1; i < howManyContains(str, c) + 1; i++) result.push_back(getBetweenThat(str, getThats(str, c, i), getThats(str, c, i + 1)));
+			if (howManyContains(str, c) != 0) for (int i = -1; i < howManyContains(str, c); i++) result.push_back(getBetweenThat(str, getThats(str, c, i), getThats(str, c, i + 1)));
 			return result;
 		}
-		/* "patates","uÃ§an, kaÃ§an Ã§ocuk" c=',' out='"' */
+		/* "patates","uçan, kaçan çocuk" c=',' out='"' */
 		std::vector<std::string> splitOut(std::string str, char c, char out)
 		{
 			bool isOut = true;
@@ -79,10 +80,35 @@ namespace el {
 			return result;
 		}
 
-		std::string subtract(std::string str, std::string wllSubtract)
+		std::vector<std::string> splitOut(std::string str, char c, char out, char out2)
 		{
-			int w = whereContains(str, wllSubtract); std::string result = "";
+			bool isOut = true;
+			std::vector<std::string> result;
+			std::string use = "";
+			for (char input : str)
+			{
+				if (isOut && input == c) { result.push_back(use); use = ""; }
+				else if (input == out) { isOut=false; }
+				else if (input == out2) { isOut = true; }
+				else use += input;
+			}
+			if (use != "") result.push_back(use);
+			return result;
+		}
+
+		std::string subtract(std::string str, std::string wllSubtract, int place)
+		{
+			int w = whereContains(str, wllSubtract, place); std::string result = "";
 			if (w != -1) for (int i = w + glos(wllSubtract); i < glos(str); i++) result += str[i];
+
+
+			return result;
+		}
+
+		std::string subtractCharacters(std::string str, char without /*= ' '*/)
+		{
+			std::string result = "";
+			for (int i = 0; i < glos(str); i++) if (str[i] != without) result += str[i];
 			return result;
 		}
 
@@ -128,12 +154,12 @@ namespace el {
 
 	bool Pattern::PatternController(std::vector<std::string> PatternVector, std::string input)
 	{
-		int key = el::StrCalc::whereContains(input, PatternVector[0]);
+		int key = el::StrCalc::whereContains(input, PatternVector[0],0);
 		for (int i = 1; i < PatternVector.size(); i++)
 		{
-			if (key < el::StrCalc::whereContains(input, PatternVector[1]))
+			if (key < el::StrCalc::whereContains(input, PatternVector[1],0))
 			{
-				key = el::StrCalc::whereContains(input, PatternVector[1]);
+				key = el::StrCalc::whereContains(input, PatternVector[1],0);
 				continue;
 			}
 			else return false;
@@ -155,8 +181,8 @@ namespace el {
 		std::vector<std::string> result;
 		for (int i = 0; i < PatternString.size() - 1; i++)
 		{
-			int leftW = el::StrCalc::whereContains(input, PatternString[i]) + el::StrCalc::glos(PatternString[i]) - 1;
-			int rightW = el::StrCalc::whereContains(input, PatternString[i + 1]);
+			int leftW = el::StrCalc::whereContains(input, PatternString[i],1) + el::StrCalc::glos(PatternString[i]) - 1;
+			int rightW = el::StrCalc::whereContains(input, PatternString[i + 1],1);
 			result.push_back(el::StrCalc::getBetweenThat(input, leftW, rightW));
 		}
 		return result;
