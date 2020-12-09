@@ -8,7 +8,7 @@ template<class T> void operator-=(T& a, T& b) { a = a - b; }
 template<class T> bool operator!=(T a, T b) { return !(a == b); }
 
 namespace el {
-	std::string getVersion() { return "0.1.6"; }
+	std::string getVersion() { return "0.1.7"; }
 	namespace Classic {
 		template <class T> int getNumberOfElements(T* c) { return sizeof(c) / sizeof(c[0]); }
 		template <class T> inline void swap(T& a, T& b) { T t; t = a; a = b; b = t; }
@@ -99,7 +99,10 @@ namespace el {
 		std::string subtract(std::string str, std::string wllSubtract, int place)
 		{
 			int w = whereContains(str, wllSubtract, place); std::string result = "";
-			if (w != -1) for (int i = w + glos(wllSubtract); i < glos(str); i++) result += str[i];
+			if (w != -1) {
+				for (int i = 0; i < w; i++) result += str[i];
+				for (int i = w + glos(wllSubtract); i < glos(str); i++) result += str[i];
+			}
 
 
 			return result;
@@ -149,6 +152,20 @@ namespace el {
 		std::string combineVecS(std::vector<std::string> str)
 		{
 			std::string result; for (std::string member : str) result += member + " "; return result;
+		}
+		std::string add(std::string str, std::string wllAdd, int place)
+		{
+			std::string result = ""; int wllAddGlos = glos(wllAdd);
+
+			for (int i = 0; i < place && i<glos(str);i++) result += str[i];
+			for (int i = 0; i < wllAddGlos; i++) result += wllAdd[i];
+			for (int i = place; i < glos(str); i++) result += str[i];
+			return result;
+		}
+		std::string Replace(std::string str, std::string replacing, std::string replaced)
+		{
+			std::string subtracted = subtract(str, replacing, 1);
+			return el::StrCalc::add(subtracted, replaced, el::StrCalc::whereContains(str, replacing, 1));
 		}
 	}
 

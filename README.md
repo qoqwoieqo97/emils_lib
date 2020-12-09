@@ -1,5 +1,5 @@
 # emils_lib
-0.1.6
+0.1.7
 Çoğu repomda bulunan ve genel kullanım için bir c++ kütüphanesi
 #define ile tanımlanmış kısayollar:
 ### LOG(x)
@@ -55,6 +55,10 @@ a yazısının sayı olup olmadığını kontrol eder
 a yazısını ters çevirir	
 ### toInteger(std::string a) 
 a yazısını sayıya çevirir ve döndürür	
+### add(std::string a, std::string b, int place)
+a yazısının place'inci elemanına b yazısını ekler
+### Replace(std::string a, std::string b, std::string c)
+a yazısının b yazısı bölümünü c yazısı ile değiştirir
 
 # Pattern
 Pattern sistemi için oluşturulmuş sınıf
