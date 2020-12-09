@@ -8,7 +8,7 @@ template<class T> void operator-=(T& a, T& b) { a = a - b; }
 template<class T> bool operator!=(T a, T b) { return !(a == b); }
 
 namespace el {
-	std::string getVersion() { return "0.1.7"; }
+	std::string getVersion() { return "0.1.7.2"; }
 	namespace Classic {
 		template <class T> int getNumberOfElements(T* c) { return sizeof(c) / sizeof(c[0]); }
 		template <class T> inline void swap(T& a, T& b) { T t; t = a; a = b; b = t; }
@@ -157,15 +157,23 @@ namespace el {
 		{
 			std::string result = ""; int wllAddGlos = glos(wllAdd);
 
-			for (int i = 0; i < place && i<glos(str);i++) result += str[i];
-			for (int i = 0; i < wllAddGlos; i++) result += wllAdd[i];
-			for (int i = place; i < glos(str); i++) result += str[i];
-			return result;
+			if (place != -1)
+			{
+				for (int i = 0; i < place && i < glos(str); i++) result += str[i];
+				for (int i = 0; i < wllAddGlos; i++) result += wllAdd[i];
+				for (int i = place; i < glos(str); i++) result += str[i];
+				return result;
+			}
+			return str;
 		}
 		std::string Replace(std::string str, std::string replacing, std::string replaced)
 		{
-			std::string subtracted = subtract(str, replacing, 1);
-			return el::StrCalc::add(subtracted, replaced, el::StrCalc::whereContains(str, replacing, 1));
+			if (whereContains(str, replacing, 1) != -1)
+			{
+				std::string subtracted = subtract(str, replacing, 1);
+				return el::StrCalc::add(subtracted, replaced, el::StrCalc::whereContains(str, replacing, 1));
+			}
+			else return str;
 		}
 	}
 

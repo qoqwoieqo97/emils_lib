@@ -1,5 +1,4 @@
-# emils_lib
-0.1.7
+# emils_lib 0.1.7.2
 Çoğu repomda bulunan ve genel kullanım için bir c++ kütüphanesi
 #define ile tanımlanmış kısayollar:
 ### LOG(x)
