@@ -168,12 +168,12 @@ namespace el {
 			}
 			return str;
 		}
-		std::string Replace(std::string str, std::string replacing, std::string replaced)
+		std::string Replace(std::string str, std::string replacing, std::string replaced,int place)
 		{
-			if (whereContains(str, replacing, 1) != -1)
+			if (whereContains(str, replacing, place) != -1)
 			{
-				std::string subtracted = subtract(str, replacing, 1);
-				return el::StrCalc::add(subtracted, replaced, el::StrCalc::whereContains(str, replacing, 1));
+				std::string subtracted = subtract(str, replacing, place);
+				return el::StrCalc::add(subtracted, replaced, el::StrCalc::whereContains(str, replacing, place));
 			}
 			else return str;
 		}
