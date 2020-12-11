@@ -44,6 +44,8 @@ namespace el {
 			return result;
 		}
 		int howManyContains(std::string string, char c) { int result = 0; for (int i = 0; i < glos(string); i++) if (string[i] == c) result++; return result; }
+		int howManyContains(std::string string, std::string wllSearch) 
+		{ for(int i=1;i<glos(string);i++) if (whereContains(string, wllSearch, i) == -1) return i - 1; return 0; }
 		int getThats(std::string string, char a, int place)
 		{
 			int result = -1; if (place == -1) return -1; else if (place > howManyContains(string, a) - 1) return glos(string);
@@ -64,7 +66,7 @@ namespace el {
 			if (howManyContains(str, c) != 0) for (int i = -1; i < howManyContains(str, c); i++) result.push_back(getBetweenThat(str, getThats(str, c, i), getThats(str, c, i + 1)));
 			return result;
 		}
-		/* "patates","uçan, kaçan çocuk" c=',' out='"' */
+		/* "patates","uÃ§an, kaÃ§an Ã§ocuk" c=',' out='"' */
 		std::vector<std::string> splitOut(std::string str, char c, char out)
 		{
 			bool isOut = true;
