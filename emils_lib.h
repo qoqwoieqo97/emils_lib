@@ -134,7 +134,7 @@ namespace el {
 	}
 	namespace Geo {
 		typedef int angle;
-		struct Angle2 { Vectors::Vector2 v; angle angle; };
+		struct Angle2 { Vectors::Vector2 v; angle ang; };
 		MYLIBRARY_API Angle2 getAngle(float x, float y, angle angleD);
 		MYLIBRARY_API bool operator==(Angle2 a, Angle2 b);
 		struct Triangle2 { Angle2 a, b, c; }; 

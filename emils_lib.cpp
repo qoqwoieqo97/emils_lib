@@ -1,6 +1,6 @@
-#pragma once
 #include <iostream>
 #include <vector>
+#include <math.h>
 #include "emils_lib.h"
 
 template<class T> void operator+=(T& a, T& b) { a = a + b; }
@@ -8,7 +8,7 @@ template<class T> void operator-=(T& a, T& b) { a = a - b; }
 template<class T> bool operator!=(T a, T b) { return !(a == b); }
 
 namespace el {
-	std::string getVersion() { return "0.1.7.2"; }
+	std::string getVersion() { return "0.1.8"; }
 	namespace Classic {
 		template <class T> int getNumberOfElements(T* c) { return sizeof(c) / sizeof(c[0]); }
 		template <class T> inline void swap(T& a, T& b) { T t; t = a; a = b; b = t; }
@@ -231,7 +231,7 @@ namespace el {
 		template <typename T> T absoluteValue(T a) { if (a < 0) a *= -1; return a; }
 
 		inline float hypotenuse(float a, float b) { return sqrt(pow(a, 2) + pow(b, 2)); }
-		template <typename T> int getNepos(T a) { if (a < 0) return -1; else if (a > 0) return 1; else if (a == 0) return 0; }
+		template <typename T> int getNepos(T a) { return a<0 ? -1 : a > 0 ? 1 : 0; }
 
 		float permutation(float a, float b) { return factorial(a) / factorial(a - b); }
 		float combination(float a, float b) { return factorial(a) / (factorial(a - b) * factorial(b)); }
@@ -299,7 +299,7 @@ namespace el {
 
 	namespace Geo {
 		Angle2 getAngle(float x, float y, angle angleD) { return { {x,y},angleD }; }
-		bool operator==(Angle2 a, Angle2 b) { return a.v.x == b.v.x && a.v.y == b.v.y && a.angle == b.angle; }
+		bool operator==(Angle2 a, Angle2 b) { return a.v.x == b.v.x && a.v.y == b.v.y && a.ang == b.ang; }
 		Triangle2 getTriangle(Angle2 a, Angle2 b, Angle2 c) { return { a,b,c }; }
 
 		Angle2 getDiffAngle(Triangle2 t1, Triangle2 t2) {
@@ -316,7 +316,7 @@ namespace el {
 			return { a.a, a.b, a.c, getDiffAngle(b,a) };
 		}
 
-		std::ostream& operator<<(std::ostream& os, Angle2 v) { os << "X:" << v.v.x << " Y:" << v.v.y << " ANGLE:" << v.angle << std::endl; return os; }
+		std::ostream& operator<<(std::ostream& os, Angle2 v) { os << "X:" << v.v.x << " Y:" << v.v.y << " ANGLE:" << v.ang << std::endl; return os; }
 		std::ostream& operator<<(std::ostream& os, Rectangle2 v) { os << v.a << v.b << v.c << v.d; return os; }
 
 
@@ -331,8 +331,8 @@ namespace el {
 			);
 		}
 
-		bool isTrue(Triangle2 triangle) { return triangle.a.angle + triangle.b.angle + triangle.c.angle == 180; }
-		bool isTrue(Rectangle2 rectangle) { return rectangle.a.angle + rectangle.b.angle + rectangle.c.angle + rectangle.d.angle == 360; }
+		bool isTrue(Triangle2 triangle) { return triangle.a.ang + triangle.b.ang + triangle.c.ang == 180; }
+		bool isTrue(Rectangle2 rectangle) { return rectangle.a.ang + rectangle.b.ang + rectangle.c.ang + rectangle.d.ang == 360; }
 	}
 
 #define JJNumber 0.4
