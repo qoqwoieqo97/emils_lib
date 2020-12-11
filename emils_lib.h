@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <unordered_map>
+#include <vector>
 
 #ifdef MYLIBRARY_EXPORT
 #define MYLIBRARY_API /*DLLEXPORT*/
