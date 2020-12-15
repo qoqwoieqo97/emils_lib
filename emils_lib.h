@@ -48,6 +48,7 @@ namespace el {
 		MYLIBRARY_API std::string combineVecS(std::vector<std::string> str);
 		MYLIBRARY_API std::string add(std::string str, std::string wllAdd, int place);
 		MYLIBRARY_API std::string Replace(std::string str, std::string replacing, std::string replaced,int place);
+		MYLIBRARY_API bool controlFromThere(std::string str, std::string control, int place);
 	}
 
 	template <typename T1, typename T2>struct Variable2 { T1 First; T2 Second; };

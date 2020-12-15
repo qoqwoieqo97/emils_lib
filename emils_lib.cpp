@@ -8,7 +8,7 @@ template<class T> void operator-=(T& a, T& b) { a = a - b; }
 template<class T> bool operator!=(T a, T b) { return !(a == b); }
 
 namespace el {
-	std::string getVersion() { return "0.1.8"; }
+	std::string getVersion() { return "0.1.9"; }
 	namespace Classic {
 		template <class T> int getNumberOfElements(T* c) { return sizeof(c) / sizeof(c[0]); }
 		template <class T> inline void swap(T& a, T& b) { T t; t = a; a = b; b = t; }
@@ -176,6 +176,11 @@ namespace el {
 				return el::StrCalc::add(subtracted, replaced, el::StrCalc::whereContains(str, replacing, place));
 			}
 			else return str;
+		}
+		bool controlFromThere(std::string str, std::string control, int place)
+		{
+			if(glos(control)+place>glos(str)) return false;
+			for(int counter = 0;counter<glos(control);counter++) if(str[counter+place] != control[counter]) return false; return true;
 		}
 	}
 
